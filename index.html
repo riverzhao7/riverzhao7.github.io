@@ -32,16 +32,17 @@
     }
 
     .left-panel {
-      width: 200px;
+      width: 220px;
       background-color: #ECECEC; /* Left panel background */
       padding: 10px;
-      overflow-y: auto;
+      overflow-y: auto; /* Enables scrolling if content overflows */
       border-right: 1px solid #ccc;
     }
 
     .left-panel ul {
       list-style: none;
       padding: 0;
+      margin: 0;
     }
 
     .left-panel li {
@@ -54,21 +55,17 @@
       background-color: #ddd;
     }
 
+    .submenu {
+      margin-left: 15px;
+      font-size: 0.9em;
+      display: block; /* Always show submenu */
+    }
+
     .right-panel {
       flex-grow: 1;
       background-color: #F5F9FF; /* Right panel background */
       padding: 20px;
       overflow-y: auto;
-    }
-
-    .submenu {
-      margin-left: 15px;
-      font-size: 0.9em;
-      display: none;
-    }
-
-    .menu-item.open > .submenu {
-      display: block;
     }
   </style>
 </head>
@@ -77,20 +74,31 @@
   <div class="main">
     <div class="left-panel">
       <ul>
-        <li class="menu-item" onclick="toggleMenu(this)">
+        <li>
           Menu 1
           <ul class="submenu">
             <li onclick="loadContent('Page 1-1')">Page 1-1</li>
             <li onclick="loadContent('Page 1-2')">Page 1-2</li>
+            <li onclick="loadContent('Page 1-3')">Page 1-3</li>
           </ul>
         </li>
-        <li class="menu-item" onclick="toggleMenu(this)">
+        <li>
           Menu 2
           <ul class="submenu">
             <li onclick="loadContent('Page 2-1')">Page 2-1</li>
             <li onclick="loadContent('Page 2-2')">Page 2-2</li>
+            <li onclick="loadContent('Page 2-3')">Page 2-3</li>
           </ul>
         </li>
+        <li>
+          Menu 3
+          <ul class="submenu">
+            <li onclick="loadContent('Page 3-1')">Page 3-1</li>
+            <li onclick="loadContent('Page 3-2')">Page 3-2</li>
+            <li onclick="loadContent('Page 3-3')">Page 3-3</li>
+          </ul>
+        </li>
+        <!-- Add more menu items here to test scroll behavior -->
       </ul>
     </div>
     <div class="right-panel" id="rightPanel">
@@ -99,13 +107,8 @@
   </div>
 
   <script>
-    function toggleMenu(element) {
-      element.classList.toggle("open");
-    }
-
     function loadContent(content) {
       document.getElementById("rightPanel").innerHTML = `<h2>${content}</h2><p>This is the content for ${content}.</p>`;
-      event.stopPropagation(); // prevent parent click
     }
   </script>
 </body>
