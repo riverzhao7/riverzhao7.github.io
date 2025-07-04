@@ -9,7 +9,7 @@
 <body>
   <div class="top-panel">My Website Title</div>
   <div class="main">
-    <div class="left-panel">
+    <div class="left-panel" id="leftPanel">
       <ul>
         <li>
           Menu 1
@@ -27,7 +27,7 @@
         </li>
       </ul>
     </div>
-    <div class="resizer"></div>
+    <div class="resizer" id="resizer"></div>
     <div class="right-panel">
       <iframe id="contentFrame" src="home.html"></iframe>
     </div>
@@ -38,21 +38,24 @@
       document.getElementById('contentFrame').src = file;
     }
 
-    // Resizable logic
-    const resizer = document.querySelector('.resizer');
-    const leftPanel = document.querySelector('.left-panel');
-    const rightPanel = document.querySelector('.right-panel');
+    // ✅ Resizing Logic
+    const resizer = document.getElementById('resizer');
+    const leftPanel = document.getElementById('leftPanel');
+
     let isResizing = false;
 
     resizer.addEventListener('mousedown', (e) => {
       isResizing = true;
       document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none'; // prevent text selection
     });
 
     document.addEventListener('mousemove', (e) => {
       if (!isResizing) return;
       const newWidth = e.clientX;
-      if (newWidth > 150 && newWidth < 500) {
+      const minWidth = 150;
+      const maxWidth = 500;
+      if (newWidth > minWidth && newWidth < maxWidth) {
         leftPanel.style.width = newWidth + 'px';
       }
     });
@@ -60,6 +63,7 @@
     document.addEventListener('mouseup', () => {
       isResizing = false;
       document.body.style.cursor = 'default';
+      document.body.style.userSelect = 'auto';
     });
   </script>
 </body>
