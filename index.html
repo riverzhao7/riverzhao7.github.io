@@ -1,1 +1,112 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Three Panel Layout</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      margin: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    .top-panel {
+      height: 60px;
+      background-color: #4A90E2; /* Top panel background */
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .main {
+      display: flex;
+      height: calc(100% - 60px);
+    }
+
+    .left-panel {
+      width: 200px;
+      background-color: #ECECEC; /* Left panel background */
+      padding: 10px;
+      overflow-y: auto;
+      border-right: 1px solid #ccc;
+    }
+
+    .left-panel ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .left-panel li {
+      padding: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .left-panel li:hover {
+      background-color: #ddd;
+    }
+
+    .right-panel {
+      flex-grow: 1;
+      background-color: #F5F9FF; /* Right panel background */
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .submenu {
+      margin-left: 15px;
+      font-size: 0.9em;
+      display: none;
+    }
+
+    .menu-item.open > .submenu {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-panel">My Website Title</div>
+  <div class="main">
+    <div class="left-panel">
+      <ul>
+        <li class="menu-item" onclick="toggleMenu(this)">
+          Menu 1
+          <ul class="submenu">
+            <li onclick="loadContent('Page 1-1')">Page 1-1</li>
+            <li onclick="loadContent('Page 1-2')">Page 1-2</li>
+          </ul>
+        </li>
+        <li class="menu-item" onclick="toggleMenu(this)">
+          Menu 2
+          <ul class="submenu">
+            <li onclick="loadContent('Page 2-1')">Page 2-1</li>
+            <li onclick="loadContent('Page 2-2')">Page 2-2</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="right-panel" id="rightPanel">
+      Please select a menu item to load content here.
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu(element) {
+      element.classList.toggle("open");
+    }
+
+    function loadContent(content) {
+      document.getElementById("rightPanel").innerHTML = `<h2>${content}</h2><p>This is the content for ${content}.</p>`;
+      event.stopPropagation(); // prevent parent click
+    }
+  </script>
+</body>
+</html>
