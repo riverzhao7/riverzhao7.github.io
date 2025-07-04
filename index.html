@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Three Panel Layout</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Resizable Panel Layout</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="top-panel">My Website Title</div>
@@ -14,7 +14,7 @@
         <li>
           Menu 1
           <ul class="submenu">
-            <li onclick="loadPage('page1.html')">Page 1-1 kadlksddlksdl dkdksdklskld sddssdlklsdklsklsd ddsdsdsd</li>
+            <li onclick="loadPage('page1.html')">Very Long Submenu Item Example 1-1</li>
             <li onclick="loadPage('page2.html')">Page 1-2</li>
           </ul>
         </li>
@@ -27,6 +27,7 @@
         </li>
       </ul>
     </div>
+    <div class="resizer"></div>
     <div class="right-panel">
       <iframe id="contentFrame" src="home.html"></iframe>
     </div>
@@ -36,6 +37,30 @@
     function loadPage(file) {
       document.getElementById('contentFrame').src = file;
     }
+
+    // Resizable logic
+    const resizer = document.querySelector('.resizer');
+    const leftPanel = document.querySelector('.left-panel');
+    const rightPanel = document.querySelector('.right-panel');
+    let isResizing = false;
+
+    resizer.addEventListener('mousedown', (e) => {
+      isResizing = true;
+      document.body.style.cursor = 'col-resize';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isResizing) return;
+      const newWidth = e.clientX;
+      if (newWidth > 150 && newWidth < 500) {
+        leftPanel.style.width = newWidth + 'px';
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      isResizing = false;
+      document.body.style.cursor = 'default';
+    });
   </script>
 </body>
 </html>
