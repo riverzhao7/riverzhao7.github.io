@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Smooth Resizable Layout</title>
+  <title>Three Panel Layout</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -14,20 +14,19 @@
         <li>
           Menu 1
           <ul class="submenu">
-            <li onclick="loadPage('page1.html')">Very Long Submenu Item Example 1-1</li>
+            <li onclick="loadPage('page1.html')">Very Long Submenu Item Example That Should Wrap Properly Across Multiple Lines</li>
             <li onclick="loadPage('page2.html')">Page 1-2</li>
           </ul>
         </li>
         <li>
           Menu 2
           <ul class="submenu">
-            <li onclick="loadPage('page3.html')">Page 2-1</li>
+            <li onclick="loadPage('page3.html')">Another Long Item That Should Also Wrap Correctly</li>
             <li onclick="loadPage('page4.html')">Page 2-2</li>
           </ul>
         </li>
       </ul>
     </div>
-    <div class="resizer" id="resizer"></div>
     <div class="right-panel">
       <iframe id="contentFrame" src="home.html"></iframe>
     </div>
@@ -37,40 +36,6 @@
     function loadPage(file) {
       document.getElementById('contentFrame').src = file;
     }
-
-    // Smoother resizing
-    const resizer = document.getElementById('resizer');
-    const leftPanel = document.getElementById('leftPanel');
-    let isResizing = false;
-
-    resizer.addEventListener('mousedown', (e) => {
-      isResizing = true;
-      document.body.style.cursor = 'col-resize';
-      document.body.style.userSelect = 'none';
-
-      const onMouseMove = (e) => {
-        if (!isResizing) return;
-        requestAnimationFrame(() => {
-          const newWidth = e.clientX;
-          const minWidth = 150;
-          const maxWidth = 500;
-          if (newWidth > minWidth && newWidth < maxWidth) {
-            leftPanel.style.width = newWidth + 'px';
-          }
-        });
-      };
-
-      const onMouseUp = () => {
-        isResizing = false;
-        document.body.style.cursor = 'default';
-        document.body.style.userSelect = 'auto';
-        window.removeEventListener('mousemove', onMouseMove);
-        window.removeEventListener('mouseup', onMouseUp);
-      };
-
-      window.addEventListener('mousemove', onMouseMove);
-      window.addEventListener('mouseup', onMouseUp);
-    });
   </script>
 </body>
 </html>
