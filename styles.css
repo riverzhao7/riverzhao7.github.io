@@ -34,6 +34,7 @@ body, html {
   background: linear-gradient(to bottom, #f3f3f3, #e0e0e0);
   padding: 10px;
   overflow: auto;
+  transition: width 0.1s linear;
   background-image: repeating-linear-gradient(
     45deg,
     rgba(255, 255, 255, 0.05) 0,

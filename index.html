@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Resizable Panel Layout</title>
+  <title>Smooth Resizable Layout</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -38,32 +38,38 @@
       document.getElementById('contentFrame').src = file;
     }
 
-    // ✅ Resizing Logic
+    // Smoother resizing
     const resizer = document.getElementById('resizer');
     const leftPanel = document.getElementById('leftPanel');
-
     let isResizing = false;
 
     resizer.addEventListener('mousedown', (e) => {
       isResizing = true;
       document.body.style.cursor = 'col-resize';
-      document.body.style.userSelect = 'none'; // prevent text selection
-    });
+      document.body.style.userSelect = 'none';
 
-    document.addEventListener('mousemove', (e) => {
-      if (!isResizing) return;
-      const newWidth = e.clientX;
-      const minWidth = 150;
-      const maxWidth = 500;
-      if (newWidth > minWidth && newWidth < maxWidth) {
-        leftPanel.style.width = newWidth + 'px';
-      }
-    });
+      const onMouseMove = (e) => {
+        if (!isResizing) return;
+        requestAnimationFrame(() => {
+          const newWidth = e.clientX;
+          const minWidth = 150;
+          const maxWidth = 500;
+          if (newWidth > minWidth && newWidth < maxWidth) {
+            leftPanel.style.width = newWidth + 'px';
+          }
+        });
+      };
 
-    document.addEventListener('mouseup', () => {
-      isResizing = false;
-      document.body.style.cursor = 'default';
-      document.body.style.userSelect = 'auto';
+      const onMouseUp = () => {
+        isResizing = false;
+        document.body.style.cursor = 'default';
+        document.body.style.userSelect = 'auto';
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+      };
+
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
     });
   </script>
 </body>
