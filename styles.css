@@ -6,6 +6,7 @@ body, html {
   margin: 0;
   height: 100%;
   font-family: Arial, sans-serif;
+  overflow: hidden; /* Prevents page scrollbars */
 }
 
 .top-panel {
@@ -27,9 +28,11 @@ body, html {
 
 .left-panel {
   width: 220px;
+  min-width: 150px;
+  max-width: 400px;
+  resize: horizontal;
+  overflow: auto;
   background: linear-gradient(to bottom, #f3f3f3, #e0e0e0);
-  padding: 10px;
-  overflow-y: auto;
   border-right: 1px solid #ccc;
   background-image: repeating-linear-gradient(
     45deg,
@@ -44,6 +47,8 @@ body, html {
   list-style: none;
   padding: 0;
   margin: 0;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 
 .left-panel > ul > li {
@@ -62,6 +67,9 @@ body, html {
   padding: 6px 8px;
   cursor: pointer;
   font-weight: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .submenu li:hover {
